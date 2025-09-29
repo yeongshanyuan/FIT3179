@@ -9,7 +9,7 @@ def create_yearly_blood_donations_by_state():
     """
     df = pd.read_csv("Original Datasets/Daily Blood Donations by Blood Group and State.csv")
     df["date"] = pd.to_datetime(df["date"], dayfirst=True, errors="coerce")
-    df["year"] = df["date"].dt.year
+    df["year"] = df["date"].dt.year.astype("Int64")
     df = df[df["blood_type"].str.lower() == "all"]
     df = df[df["year"] == 2024]
 
@@ -27,7 +27,7 @@ def create_yearly_new_donors_by_state():
     """
     df = pd.read_csv("Original Datasets/Daily New Donors by State.csv")
     df["date"] = pd.to_datetime(df["date"], dayfirst=True, errors="coerce")
-    df["year"] = df["date"].dt.year
+    df["year"] = df["date"].dt.year.astype("Int64")
     df_2024 = df[df["year"] == 2024]
 
     result = df_2024.groupby("state", as_index=False)["total"].sum()
