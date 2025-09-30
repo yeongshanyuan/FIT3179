@@ -75,9 +75,10 @@
                         "scheme": "reds"
                     },
                     "legend": {
-                        "title": ["Proportion of New Donors",  "in Total Blood Donations"],
+                        "title": "Proportion of New Donors in Total Blood Donations",
                         "orient": "bottom",
-                        "direction": "horizontal"
+                        "direction": "horizontal",
+                        "titleLimit": 0
                     }
                 },
                 "tooltip": [
