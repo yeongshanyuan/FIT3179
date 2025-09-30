@@ -14,7 +14,7 @@
     "layer": [
         {
             "data": {
-                "url": "Cleaned Datasets/Malaysia States.json",
+                "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Week%209%20Homework/Cleaned%20Datasets/Malaysia%20States.json",
                 "format": {
                     "type": "topojson",
                     "feature": "ne_110m_graticules_5"
@@ -29,7 +29,7 @@
         },
         {
             "data": {
-                "url": "Cleaned Datasets/Malaysia States.json",
+                "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Week%209%20Homework/Cleaned%20Datasets/Malaysia%20States.json",
                 "format": {
                     "type": "topojson",
                     "feature": "gadm41_MYS_1"
@@ -40,7 +40,7 @@
                     "lookup": "properties.NAME_1",
                     "from": {
                         "data": {
-                            "url": "Cleaned Datasets/New Donors and Total Blood Donations 2024.csv"
+                            "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Week%209%20Homework/Cleaned%20Datasets/New%20Donors%20and%20Total%20Blood%20Donations%202024.csv"
                         },
                         "key": "State",
                         "fields": [
@@ -75,7 +75,7 @@
                         "scheme": "reds"
                     },
                     "legend": {
-                        "title": "Proportion of New Donors in Total Blood Donations",
+                        "title": ["Proportion of New Donors",  "in Total Blood Donations"],
                         "orient": "bottom",
                         "direction": "horizontal"
                     }
@@ -107,7 +107,7 @@
         },
         {
             "data": {
-                "url": "Cleaned Datasets/Malaysia States.json",
+                "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Week%209%20Homework/Cleaned%20Datasets/Malaysia%20States.json",
                 "format": {
                     "type": "topojson",
                     "feature": "gadm41_MYS_1"
@@ -118,7 +118,7 @@
                     "lookup": "properties.NAME_1",
                     "from": {
                         "data": {
-                            "url": "Cleaned Datasets/New Donors and Total Blood Donations 2024.csv"
+                            "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Week%209%20Homework/Cleaned%20Datasets/New%20Donors%20and%20Total%20Blood%20Donations%202024.csv"
                         },
                         "key": "State",
                         "fields": [
