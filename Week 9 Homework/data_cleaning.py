@@ -56,7 +56,7 @@ def merge_blood_donations_and_new_donors():
 
     additional_states = ["Labuan", "Putrajaya", "Perlis"]
     for state in additional_states:
-        df_merged = pd.concat([df_merged, pd.DataFrame([{"state": state, "total": 0, "year": 2024, "donations": 0}])], ignore_index=True)
+        df_merged = pd.concat([df_merged, pd.DataFrame([{"state": state, "total": -1, "year": 2024, "donations": -1}])], ignore_index=True)
     
     df_merged = df_merged.rename(columns={"state": "State", "total": "Total New Donors", "donations": "Total Blood Donations", "year": "Year"})
     df_merged.to_csv("Cleaned Datasets/New Donors and Total Blood Donations 2024.csv", index=False)
