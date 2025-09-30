@@ -5,13 +5,14 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5.1.0"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6.17.0"></script>
     
+  <link rel="stylesheet" type="text/css" href="css/styles.css" media="all">
 </head>
 <body>
   
 <div id="choropleth_map"></div>
 
 <script type="text/javascript">
-  var spec2 = "Week 9 Homework/choropleth_map.json";
+  var spec2 = "choropleth_map.vg.json";
   vegaEmbed('#choropleth_map', spec2).then(function(result) {
   }).catch(console.error);
 </script>
