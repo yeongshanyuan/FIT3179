@@ -1,17 +1,17 @@
-State,Total New Donors,Year,Total Blood Donations
-Johor,3903,2024,17974
-Kedah,1901,2024,8030
-Kelantan,1912,2024,7943
-Melaka,2419,2024,11589
-NegeriSembilan,1358,2024,6361
-Pahang,1955,2024,9252
-Perak,3199,2024,17586
-PulauPinang,3185,2024,17259
-Sabah,3325,2024,15022
-Sarawak,2215,2024,15168
-Selangor,2871,2024,12836
-Trengganu,2230,2024,7984
-KualaLumpur,13893,2024,80540
-Labuan,-1,2024,-1
-Putrajaya,-1,2024,-1
-Perlis,-1,2024,-1
+State,Total New Donors,Total Blood Donations
+Johor,3903,17974
+Kedah,1901,8030
+Kelantan,1912,7943
+Melaka,2419,11589
+NegeriSembilan,1358,6361
+Pahang,1955,9252
+Perak,3199,17586
+PulauPinang,3185,17259
+Sabah,3325,15022
+Sarawak,2215,15168
+Selangor,2871,12836
+Trengganu,2230,7984
+KualaLumpur,13893,80540
+Labuan,-1,-1
+Putrajaya,-1,-1
+Perlis,-1,-1

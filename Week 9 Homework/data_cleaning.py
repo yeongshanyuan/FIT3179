@@ -14,6 +14,7 @@ def create_yearly_blood_donations_by_state():
     df = df[df["year"] == 2024]
 
     result = df.groupby(["year", "state"], as_index=False)["donations"].sum()
+    result = result[["state", "donations"]]
     result.to_csv("Cleaned Datasets/Blood Donations by State 2024.csv", index=False)
 
     print(result)
@@ -56,7 +57,7 @@ def merge_blood_donations_and_new_donors():
 
     additional_states = ["Labuan", "Putrajaya", "Perlis"]
     for state in additional_states:
-        df_merged = pd.concat([df_merged, pd.DataFrame([{"state": state, "total": -1, "year": 2024, "donations": -1}])], ignore_index=True)
+        df_merged = pd.concat([df_merged, pd.DataFrame([{"state": state, "total": -1, "donations": -1}])], ignore_index=True)
     
     df_merged = df_merged.rename(columns={"state": "State", "total": "Total New Donors", "donations": "Total Blood Donations", "year": "Year"})
     df_merged.to_csv("Cleaned Datasets/New Donors and Total Blood Donations 2024.csv", index=False)
