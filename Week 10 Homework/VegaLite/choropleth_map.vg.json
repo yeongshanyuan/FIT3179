@@ -1,0 +1,153 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "width": 1000,
+    "height": 500,
+    "title": "Proportion of New Donors in Total Blood Donations, Malaysia 2024",
+    "projection": {
+        "type": "mercator",
+        "center": [
+            110,
+            4
+        ],
+        "scale": 2600
+    },
+    "layer": [
+        {
+            "data": {
+                "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Week%2010%20Homework/Cleaned%20Datasets/Malaysia%20States.json",
+                "format": {
+                    "type": "topojson",
+                    "feature": "ne_110m_graticules_20"
+                }
+            },
+            "mark": {
+                "type": "geoshape",
+                "fill": null,
+                "stroke": "lightgray",
+                "strokeWidth": 0.5
+            }
+        },
+        {
+            "data": {
+                "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Week%2010%20Homework/Cleaned%20Datasets/Malaysia%20States.json",
+                "format": {
+                    "type": "topojson",
+                    "feature": "gadm41_MYS_1"
+                }
+            },
+            "transform": [
+                {
+                    "lookup": "properties.NAME_1",
+                    "from": {
+                        "data": {
+                            "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Week%2010%20Homework/Cleaned%20Datasets/New%20Donors%20and%20Total%20Blood%20Donations%202024.csv"
+                        },
+                        "key": "State",
+                        "fields": [
+                            "Total New Donors",
+                            "Total Blood Donations"
+                        ]
+                    }
+                },
+                {
+                    "calculate": "datum['Total New Donors'] != -1 ? datum['Total New Donors'] / datum['Total Blood Donations'] : -1",
+                    "as": "Proportion"
+                },
+                {
+                    "calculate": "datum.properties.NAME_1 == 'NegeriSembilan' ? 'Negeri Sembilan' : datum.properties.NAME_1 == 'PulauPinang' ? 'Pulau Pinang' : datum.properties.NAME_1 == 'Trengganu' ? 'Terengganu' : datum.properties.NAME_1 == 'KualaLumpur' ? 'Kuala Lumpur' : datum.properties.NAME_1",
+                    "as": "Display State"
+                },
+                {
+                    "filter": "datum.Proportion != -1"
+                }
+            ],
+            "mark": {
+                "type": "geoshape",
+                "stroke": "white",
+                "strokeWidth": 0.5
+            },
+            "encoding": {
+                "color": {
+                    "field": "Proportion",
+                    "type": "quantitative",
+                    "scale": {
+                        "type": "log",
+                        "scheme": "reds"
+                    },
+                    "legend": {
+                        "title": "Proportion of New Donors in Total Blood Donations",
+                        "orient": "bottom",
+                        "direction": "horizontal",
+                        "titleLimit": 0
+                    }
+                },
+                "tooltip": [
+                    {
+                        "field": "Display State",
+                        "type": "nominal",
+                        "title": "State"
+                    },
+                    {
+                        "field": "Total New Donors",
+                        "type": "quantitative",
+                        "title": "Total New Donors"
+                    },
+                    {
+                        "field": "Total Blood Donations",
+                        "type": "quantitative",
+                        "title": "Total Blood Donations"
+                    },
+                    {
+                        "field": "Proportion",
+                        "type": "quantitative",
+                        "format": ".2f",
+                        "title": "Proportion of New Donors in Total Blood Donations"
+                    }
+                ]
+            }
+        },
+        {
+            "data": {
+                "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Week%209%20Homework/Cleaned%20Datasets/Malaysia%20States.json",
+                "format": {
+                    "type": "topojson",
+                    "feature": "gadm41_MYS_1"
+                }
+            },
+            "transform": [
+                {
+                    "lookup": "properties.NAME_1",
+                    "from": {
+                        "data": {
+                            "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Week%209%20Homework/Cleaned%20Datasets/New%20Donors%20and%20Total%20Blood%20Donations%202024.csv"
+                        },
+                        "key": "State",
+                        "fields": [
+                            "Total New Donors",
+                            "Total Blood Donations"
+                        ]
+                    }
+                },
+                {
+                    "filter": "datum['Total New Donors'] == -1"
+                },
+                {
+                    "calculate": "'Non Available Data for ' + datum.properties.NAME_1",
+                    "as": "Invalid Description"
+                }
+            ],
+            "mark": {
+                "type": "geoshape",
+                "fill": "lightgrey",
+                "stroke": "white",
+                "strokeWidth": 1
+            },
+            "encoding": {
+                "tooltip": {
+                    "field": "Invalid Description",
+                    "type": "nominal"
+                }
+            }
+        }
+    ]
+}

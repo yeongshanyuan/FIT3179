@@ -1,0 +1,78 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Daily Blood Donations by Blood Group in 2024",
+    "data": {
+        "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Week%2010%20Homework/Cleaned%20Datasets/Daily%20Blood%20Donations%20by%20Blood%20Group.csv"
+    },
+    "width": 600,
+    "height": 450,
+    "params": [
+        {
+            "name": "month_slider",
+            "value": 1,
+            "bind": {
+                "input": "range",
+                "min": 1,
+                "max": 12,
+                "step": 1,
+                "name": "Select Month in 2024: "
+            }
+        }
+    ],
+    "transform": [
+        {
+            "calculate": "month(datum.date) + 1",
+            "as": "month_num"
+        },
+        {
+            "calculate": "year(datum.date)",
+            "as": "year"
+        },
+        {
+            "filter": "datum.month_num == month_slider"
+        }
+    ],
+    "mark": "area",
+    "encoding": {
+        "x": {
+            "field": "date",
+            "type": "temporal",
+            "title": "Day of Month",
+            "axis": {
+                "format": "%d"
+            }
+        },
+        "y": {
+            "aggregate": "sum",
+            "field": "donations",
+            "type": "quantitative",
+            "title": "Number of Donations"
+        },
+        "color": {
+            "field": "blood_type",
+            "type": "nominal",
+            "title": "Blood Type",
+            "scale": {
+                "scheme": "category20"
+            }
+        },
+        "tooltip": [
+            {
+                "field": "date",
+                "type": "temporal",
+                "title": "Date"
+            },
+            {
+                "field": "blood_type",
+                "type": "nominal",
+                "title": "Blood Type"
+            },
+            {
+                "aggregate": "sum",
+                "field": "donations",
+                "type": "quantitative",
+                "title": "Donations"
+            }
+        ]
+    }
+}
