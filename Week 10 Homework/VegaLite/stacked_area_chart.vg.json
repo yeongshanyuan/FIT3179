@@ -32,47 +32,76 @@
             "filter": "datum.month_num == month_slider"
         }
     ],
-    "mark": "area",
-    "encoding": {
-        "x": {
-            "field": "date",
-            "type": "temporal",
-            "title": "Day of Month",
-            "axis": {
-                "format": "%d"
+    "layer": [
+        {
+            "mark": "area",
+            "encoding": {
+                "x": {
+                    "field": "date",
+                    "type": "temporal",
+                    "title": "Day of Month",
+                    "axis": {
+                        "format": "%d"
+                    }
+                },
+                "y": {
+                    "aggregate": "sum",
+                    "field": "donations",
+                    "type": "quantitative",
+                    "title": "Number of Donations"
+                },
+                "color": {
+                    "field": "blood_type",
+                    "type": "nominal",
+                    "title": "Blood Type",
+                    "scale": {
+                        "scheme": "category20"
+                    }
+                },
+                "tooltip": [
+                    {
+                        "field": "date",
+                        "type": "temporal",
+                        "title": "Date"
+                    },
+                    {
+                        "field": "blood_type",
+                        "type": "nominal",
+                        "title": "Blood Type"
+                    },
+                    {
+                        "aggregate": "sum",
+                        "field": "donations",
+                        "type": "quantitative",
+                        "title": "Donations"
+                    }
+                ]
             }
         },
-        "y": {
-            "aggregate": "sum",
-            "field": "donations",
-            "type": "quantitative",
-            "title": "Number of Donations"
-        },
-        "color": {
-            "field": "blood_type",
-            "type": "nominal",
-            "title": "Blood Type",
-            "scale": {
-                "scheme": "category20"
-            }
-        },
-        "tooltip": [
-            {
-                "field": "date",
-                "type": "temporal",
-                "title": "Date"
+        {
+            "data": {
+                "values": [
+                    {
+                        "text": "Blood Type O consistently has the highest donations across all months"
+                    }
+                ]
             },
-            {
-                "field": "blood_type",
-                "type": "nominal",
-                "title": "Blood Type"
+            "mark": {
+                "type": "text",
+                "align": "center",
+                "baseline": "bottom",
+                "fontSize": 14,
+                "fontWeight": "bold",
+                "color": "#7a0505",
+                "dy": 240,
+                "dx": 100
             },
-            {
-                "aggregate": "sum",
-                "field": "donations",
-                "type": "quantitative",
-                "title": "Donations"
+            "encoding": {
+                "text": {
+                    "field": "text",
+                    "type": "nominal"
+                }
             }
-        ]
-    }
+        }
+    ]
 }
