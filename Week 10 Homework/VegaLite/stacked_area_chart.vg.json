@@ -4,8 +4,8 @@
     "data": {
         "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Week%2010%20Homework/Cleaned%20Datasets/Daily%20Blood%20Donations%20by%20Blood%20Group.csv"
     },
-    "width": 600,
-    "height": 450,
+    "width": 1000,
+    "height": 500,
     "params": [
         {
             "name": "month_slider",
