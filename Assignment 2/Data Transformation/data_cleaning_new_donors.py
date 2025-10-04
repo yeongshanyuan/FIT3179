@@ -2,10 +2,6 @@ import pandas as pd
 
 
 def create_flow_data_from_hospital_to_state_to_agegroup():
-    """
-    Create a two-level Sankey dataset showing flow from Hospital → State → Age Group.
-    """
-
     facility_df = pd.read_csv("Original Datasets/New Donors by Facility.csv")
 
     facility_df = facility_df.dropna(subset=["hospital"])
@@ -15,7 +11,6 @@ def create_flow_data_from_hospital_to_state_to_agegroup():
 
     facility_df["date"] = pd.to_datetime(facility_df["date"], errors="coerce")
     facility_df["year"] = facility_df["date"].dt.year
-
     facility_df = facility_df[
         (facility_df["year"] >= 2010) & (facility_df["year"] <= 2024)
     ]
@@ -31,7 +26,6 @@ def create_flow_data_from_hospital_to_state_to_agegroup():
         "55-59",
         "60-64",
         "other",
-        "total",
     ]
     facility_df[age_columns] = (
         facility_df[age_columns].apply(pd.to_numeric, errors="coerce").fillna(0)
@@ -55,26 +49,17 @@ def create_flow_data_from_hospital_to_state_to_agegroup():
         "Hospital Sultanah Nur Zahirah": "Terengganu",
         "Hospital Queen Elizabeth Ii": "Sabah",
         "Hospital Duchess Of Kent": "Sabah",
+        "Hospital Tawau": "Sabah",
+        "Hospital Umum Sarawak": "Sarawak",
+        "Hospital Miri": "Sarawak",
     }
 
-    facility_df = facility_df.copy()
     facility_df["state"] = facility_df["hospital"].map(hospital_to_state)
     facility_df = facility_df.dropna(subset=["state"])
 
     sankey_df = facility_df.melt(
         id_vars=["year", "state", "hospital"],
-        value_vars=[
-            "17-24",
-            "25-29",
-            "30-34",
-            "35-39",
-            "40-44",
-            "45-49",
-            "50-54",
-            "55-59",
-            "60-64",
-            "other",
-        ],
+        value_vars=age_columns,
         var_name="age_group",
         value_name="donors",
     )
@@ -83,20 +68,22 @@ def create_flow_data_from_hospital_to_state_to_agegroup():
     sankey_df = sankey_df.groupby(
         ["year", "hospital", "state", "age_group"], as_index=False
     )["donors"].sum()
-    sankey_df.rename(
-        columns={
-            "year": "Year",
-            "hospital": "Hospital",
-            "state": "State",
-            "age_group": "Age Group",
-            "donors": "New Donors",
-        },
-        inplace=True,
+
+    hospital_state = (
+        sankey_df.groupby(["year", "hospital", "state"])["donors"].sum().reset_index()
     )
+    hospital_state.columns = ["year", "source", "target", "value"]
 
-    sankey_df.to_csv("Cleaned Datasets/New Donors Flow.csv", index=False)
-    print(sankey_df)
+    state_age = (
+        sankey_df.groupby(["year", "state", "age_group"])["donors"].sum().reset_index()
+    )
+    state_age.columns = ["year", "source", "target", "value"]
+
+    sankey_flow = pd.concat([hospital_state, state_age], ignore_index=True)
+
+    sankey_flow.to_csv("Cleaned Datasets/New Donors Sankey Flow.csv", index=False)
+    print(sankey_flow)
 
 
-# To run the function in terminal : python "Data Transformation/data_cleaning_new_donors.py"
+# To run the functions in terminal : python "Data Transformation\data_cleaning_new_donors.py"
 create_flow_data_from_hospital_to_state_to_agegroup()
