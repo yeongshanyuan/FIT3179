@@ -1,0 +1,41 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Blood Type Distribution in Malaysia (%)",
+    "width": 400,
+    "height": 400,
+    "data": {
+        "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Assignment%202/Cleaned%20Datasets/Malaysia%20Blood%20Distribution%20in%202025.csv"
+    },
+    "mark": {
+        "type": "arc",
+        "innerRadius": 80,
+        "outerRadius": 150
+    },
+    "encoding": {
+        "theta": {
+            "field": "Percentage",
+            "type": "quantitative"
+        },
+        "color": {
+            "field": "Blood Type",
+            "type": "nominal",
+            "legend": {
+                "title": "Blood Type",
+                "orient": "right"
+            }
+        },
+        "tooltip": [
+            {
+                "field": "Blood Type",
+                "type": "nominal",
+                "title": "Blood Type"
+            },
+            {
+                "field": "Percentage",
+                "type": "quantitative",
+                "title": "Percentage",
+                "format": ".2f"
+            }
+        ]
+    }
+}
