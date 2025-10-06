@@ -76,7 +76,6 @@ def get_Malaysia_blood_donations_rate():
     df_donations = get_Malaysia_blood_donations()
     df_population = get_Malaysia_populations()
 
-    # convert to rate first (donations/populations)
     df_new = pd.merge(df_donations, df_population, on="Year", how="inner")
     df_new["Blood Donations Rate"] = (
         df_new["Total Blood Donations"] / df_new["Population"]
@@ -93,7 +92,7 @@ def create_final_blood_donations_rate():
     df_my = get_Malaysia_blood_donations_rate()
 
     result = pd.merge(
-        df_sg, df_my, on="Year", how="outer", suffixes=("_Singapore", "_Malaysia")
+        df_sg, df_my, on="Year", how="outer", suffixes=(" Singapore", " Malaysia")
     )
     result.to_csv(
         "Cleaned Datasets/Singapore and Malaysia Blood Donations Rate.csv", index=False
