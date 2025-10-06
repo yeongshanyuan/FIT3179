@@ -4,7 +4,7 @@ import pandas as pd
 def get_Malaysia_blood_distribution():
     """
     Read the blood type by country in 2025 dataset.
-    Filter out row for Malaysia only.
+    Filter the rows for Malaysia only.
     """
     df = pd.read_csv("Original Datasets\Blood Type by Country 2025.csv")
     df = df[df["country"] == "Malaysia"]
@@ -22,10 +22,7 @@ def get_Malaysia_blood_distribution():
         }
     )
 
-    result = result.melt(
-        var_name="Blood Type", value_name="Percentage"
-    )
-
+    result = result.melt(var_name="Blood Type", value_name="Percentage")
     result.to_csv(
         "Cleaned Datasets/Malaysia Blood Distribution in 2025.csv", index=False
     )

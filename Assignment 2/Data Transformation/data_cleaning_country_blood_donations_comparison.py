@@ -92,13 +92,13 @@ def create_final_blood_donations_rate():
     df_sg = get_Singapore_blood_donations_rate()
     df_my = get_Malaysia_blood_donations_rate()
 
-    df_merged = pd.merge(
+    result = pd.merge(
         df_sg, df_my, on="Year", how="outer", suffixes=("_Singapore", "_Malaysia")
     )
-    df_merged.to_csv(
+    result.to_csv(
         "Cleaned Datasets/Singapore and Malaysia Blood Donations Rate.csv", index=False
     )
-    print(df_merged)
+    print(result)
 
 
 # To run in terminal: python "Data Transformation\data_cleaning_country_blood_donations_comparison.py"
