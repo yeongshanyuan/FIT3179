@@ -1,0 +1,156 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Daily Blood Donations by Blood Group",
+    "data": {
+        "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Assignment%202/Cleaned%20Datasets/Daily%20Blood%20Donations%20by%20Blood%20Group.csv"
+    },
+    "params": [
+        {
+            "name": "Year",
+            "value": 2024,
+            "bind": {
+                "input": "range",
+                "min": 2010,
+                "max": 2024,
+                "step": 1,
+                "name": "Select Year: "
+            }
+        }
+    ],
+    "vconcat": [
+        {
+            "width": 500,
+            "height": 200,
+            "transform": [
+                {
+                    "filter": "year(datum.Date) == Year"
+                }
+            ],
+            "mark": "area",
+            "encoding": {
+                "x": {
+                    "field": "Date",
+                    "timeUnit": "yearmonthdate",
+                    "scale": {
+                        "domain": {
+                            "param": "time_brush"
+                        }
+                    },
+                    "axis": {
+                        "title": "",
+                        "grid": false,
+                        "tickCount": 5,
+                        "format": "%b %d"
+                    }
+                },
+                "y": {
+                    "aggregate": "sum",
+                    "field": "Donations",
+                    "title": "Number of Donations"
+                },
+                "color": {
+                    "field": "Blood Type",
+                    "type": "nominal",
+                    "title": "Blood Type",
+                    "scale": {
+                        "range": [
+                            "#fdbe85",
+                            "#fd8d3c",
+                            "#e6550d",
+                            "#bd0026"
+                        ]
+                    },
+                    "legend": {
+                        "orient": "bottom",
+                        "direction": "horizontal"
+                    }
+                },
+                "tooltip": [
+                    {
+                        "field": "Date",
+                        "type": "temporal",
+                        "title": "Date",
+                        "format": "%B %d, %Y"
+                    },
+                    {
+                        "field": "Blood Type",
+                        "type": "nominal",
+                        "title": "Blood Type"
+                    },
+                    {
+                        "aggregate": "sum",
+                        "field": "Donations",
+                        "type": "quantitative",
+                        "title": "Total Donations",
+                        "format": ","
+                    }
+                ]
+            }
+        },
+        {
+            "width": 500,
+            "height": 80,
+            "transform": [
+                {
+                    "filter": "year(datum.Date) == Year"
+                }
+            ],
+            "mark": "line",
+            "params": [
+                {
+                    "name": "time_brush",
+                    "value": {
+                        "x": [
+                            {
+                                "year": 2024,
+                                "month": 11,
+                                "date": 1
+                            },
+                            {
+                                "year": 2024,
+                                "month": 12,
+                                "date": 31
+                            }
+                        ]
+                    },
+                    "select": {
+                        "type": "interval",
+                        "encodings": [
+                            "x"
+                        ]
+                    }
+                }
+            ],
+            "encoding": {
+                "x": {
+                    "field": "Date",
+                    "timeUnit": "yearmonthdate",
+                    "axis": {
+                        "title": "",
+                        "format": "%b",
+                        "grid": false
+                    }
+                },
+                "y": {
+                    "aggregate": "sum",
+                    "field": "Donations",
+                    "axis": {
+                        "tickCount": 3,
+                        "grid": false
+                    },
+                    "title": "Total Donations"
+                }
+            }
+        }
+    ],
+    "config": {
+        "view": {
+            "stroke": "transparent"
+        },
+        "axis": {
+            "domain": false,
+            "ticks": false,
+            "grid": false
+        }
+    }
+}

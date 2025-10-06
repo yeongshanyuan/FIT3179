@@ -1,0 +1,153 @@
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "title": "Blood Donations Calendar Heatmap",
+    "width": 100,
+    "height": 100,
+    "params": [
+        {
+            "name": "Year",
+            "value": 2024,
+            "bind": {
+                "input": "range",
+                "min": 2010,
+                "max": 2024,
+                "step": 1,
+                "name": "Year: "
+            }
+        }
+    ],
+    "data": {
+        "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Assignment%202/Cleaned%20Datasets/Daily%20Blood%20Donations.csv"
+    },
+    "transform": [
+        {
+            "filter": "year(datum.Date) == Year"
+        },
+        {
+            "calculate": "year(datum.Date)",
+            "as": "Year"
+        },
+        {
+            "calculate": "month(datum.Date)",
+            "as": "MonthNumber"
+        },
+        {
+            "calculate": "['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][month(datum.Date)]",
+            "as": "MonthName"
+        },
+        {
+            "calculate": "day(datum.Date)==0?week(datum.Date)-1:week(datum.Date)",
+            "as": "WeekNumber"
+        },
+        {
+            "calculate": "['Sun','Mon','Tue','Wed','Thu','Fri','Sat'][day(datum.Date)]",
+            "as": "DayName"
+        }
+    ],
+    "mark": {
+        "type": "bar",
+        "cornerRadius": 2,
+        "tooltip": true
+    },
+    "encoding": {
+        "column": {
+            "field": "MonthName",
+            "type": "ordinal",
+            "sort": [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            ],
+            "spacing": 10,
+            "title": "",
+            "header": {
+                "labelFontSize": 14,
+                "labelPadding": 5
+            }
+        },
+        "x": {
+            "field": "WeekNumber",
+            "type": "ordinal",
+            "title": "",
+            "axis": null
+        },
+        "y": {
+            "field": "DayName",
+            "type": "ordinal",
+            "sort": [
+                "Mon",
+                "Tue",
+                "Wed",
+                "Thu",
+                "Fri",
+                "Sat",
+                "Sun"
+            ],
+            "title": "",
+            "axis": {
+                "labels": true,
+                "ticks": false,
+                "labelPadding": 5
+            }
+        },
+        "color": {
+            "field": "Donations",
+            "type": "quantitative",
+            "scale": {
+                "scheme": "reds"
+            },
+            "legend": {
+                "title": "Donations",
+                "orient": "bottom",
+                "direction": "horizontal"
+            }
+        },
+        "tooltip": [
+            {
+                "field": "Date",
+                "type": "temporal",
+                "title": "Date",
+                "format": "%Y-%m-%d"
+            },
+            {
+                "field": "DayName",
+                "type": "nominal",
+                "title": "Day"
+            },
+            {
+                "field": "Donations",
+                "type": "quantitative",
+                "title": "Donations",
+                "format": ","
+            }
+        ]
+    },
+    "resolve": {
+        "axis": {
+            "x": "independent"
+        },
+        "scale": {
+            "x": "independent"
+        }
+    },
+    "config": {
+        "view": {
+            "stroke": "transparent"
+        },
+        "axis": {
+            "ticks": false,
+            "grid": false,
+            "domain": false,
+            "labelFontSize": 12
+        }
+    }
+}
