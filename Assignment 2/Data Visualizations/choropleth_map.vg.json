@@ -98,7 +98,7 @@
                     "legend": {
                         "title": "Proportion of New Donors in Total Blood Donations",
                         "orient": "bottom",
-                        "format": ".0%",  
+                        "format": ".0%",
                         "direction": "horizontal",
                         "titleLimit": 0
                     }

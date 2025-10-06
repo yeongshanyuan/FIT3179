@@ -1,0 +1,105 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "title": "Blood Donations by State and Age Group (2010–2024)",
+  "data": {
+    "url": "../Cleaned Datasets/New Donors by State and Age Group.csv"
+  },
+  "params": [
+    {
+      "name": "Year",
+      "value": 2024,
+      "bind": {
+        "input": "range",
+        "min": 2010,
+        "max": 2024,
+        "step": 1,
+        "name": "Year: "
+      }
+    }
+  ],
+  "transform": [
+    {
+      "filter": "datum.Year == Year"
+    },
+    {
+      "calculate": "datum['Total Blood Donations'] == 0 ? 'zero' : 'nonzero'",
+      "as": "donation_status"
+    },
+    {
+      "calculate": "datum['Total Blood Donations'] == 0 ? 0.1 : datum['Total Blood Donations']",
+      "as": "donations_logsafe"
+    }
+  ],
+  "mark": "rect",
+  "encoding": {
+    "y": {
+      "field": "Age Group",
+      "type": "ordinal",
+      "title": "Age Group",
+      "sort": [
+        "17-24",
+        "25-29",
+        "30-34",
+        "35-39",
+        "40-44",
+        "45-49",
+        "50-54",
+        "55-59",
+        "60-64",
+        "other"
+      ]
+    },
+    "x": {
+      "field": "State",
+      "type": "nominal",
+      "title": "State",
+      "sort": "ascending"
+    },
+    "color": {
+      "condition": {
+        "test": "datum['donation_status'] == 'zero'",
+        "value": "#e0e0e0"
+      },
+      "field": "donations_logsafe",
+      "type": "quantitative",
+      "title": "Total Donations (log scale)",
+      "scale": {
+        "type": "log",
+        "scheme": "reds",
+        "domainMin": 0.1
+      }
+    },
+    "tooltip": [
+      {
+        "field": "Year",
+        "title": "Year"
+      },
+      {
+        "field": "State",
+        "title": "State"
+      },
+      {
+        "field": "Age Group",
+        "title": "Age Group"
+      },
+      {
+        "field": "Total Blood Donations",
+        "title": "Total Donations"
+      }
+    ]
+  },
+  "config": {
+    "axis": {
+      "labelFontSize": 10,
+      "titleFontSize": 12,
+      "grid": false
+    },
+    "title": {
+      "fontSize": 16,
+      "fontWeight": "bold"
+    },
+    "view": {
+      "stroke": "transparent"
+    }
+  }
+}

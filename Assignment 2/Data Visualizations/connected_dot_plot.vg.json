@@ -1,0 +1,127 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 500,
+  "data": {
+    "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Assignment%202/Cleaned%20Datasets/Singapore%20and%20Malaysia%20Blood%20Donations%20Rate.csv"
+  },
+  "transform": [
+    {
+      "fold": [
+        "Blood Donations Rate Singapore",
+        "Blood Donations Rate Malaysia"
+      ],
+      "as": [
+        "Country",
+        "Rate"
+      ]
+    },
+    {
+      "calculate": "datum.Country === 'Blood Donations Rate Singapore' ? 'Singapore' : 'Malaysia'",
+      "as": "Country Label"
+    }
+  ],
+  "title": {
+    "text": "Blood Donation Rates: Singapore vs Malaysia (2010-2024)",
+    "fontSize": 18,
+    "anchor": "middle"
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Assignment%202/Cleaned%20Datasets/Singapore%20and%20Malaysia%20Blood%20Donations%20Rate.csv"
+      },
+      "mark": {
+        "type": "rule",
+        "strokeWidth": 2,
+        "color": "#888"
+      },
+      "encoding": {
+        "y": {
+          "field": "Year",
+          "type": "ordinal",
+          "title": "Year",
+          "axis": {
+            "labelAngle": 0
+          }
+        },
+        "x": {
+          "field": "Blood Donations Rate Malaysia",
+          "type": "quantitative",
+          "title": "Blood Donation Rate (per 1000 population)",
+          "scale": {
+            "domain": [
+              12,
+              22
+            ]
+          }
+        },
+        "x2": {
+          "field": "Blood Donations Rate Singapore"
+        }
+      }
+    },
+    {
+      "mark": {
+        "type": "point",
+        "filled": true,
+        "size": 120
+      },
+      "encoding": {
+        "y": {
+          "field": "Year",
+          "type": "ordinal"
+        },
+        "x": {
+          "field": "Rate",
+          "type": "quantitative"
+        },
+        "color": {
+          "field": "Country Label",
+          "type": "nominal",
+          "scale": {
+            "domain": [
+              "Singapore",
+              "Malaysia"
+            ],
+            "range": [
+              "#e74c3c",
+              "#3498db"
+            ]
+          },
+          "legend": {
+            "title": "Country",
+            "orient": "right"
+          }
+        },
+        "tooltip": [
+          {
+            "field": "Year",
+            "type": "ordinal",
+            "title": "Year"
+          },
+          {
+            "field": "Country Label",
+            "type": "nominal",
+            "title": "Country"
+          },
+          {
+            "field": "Rate",
+            "type": "quantitative",
+            "title": "Rate",
+            "format": ".1f"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {
+    "axis": {
+      "grid": true,
+      "gridOpacity": 0.3
+    },
+    "view": {
+      "stroke": null
+    }
+  }
+}

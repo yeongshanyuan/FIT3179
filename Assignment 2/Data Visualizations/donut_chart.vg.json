@@ -19,6 +19,14 @@
         "color": {
             "field": "Blood Type",
             "type": "nominal",
+            "scale": {
+                "range": [
+                    "#fdbe85",
+                    "#fd8d3c",
+                    "#e6550d",
+                    "#bd0026"
+                ]
+            },
             "legend": {
                 "title": "Blood Type",
                 "orient": "right"
