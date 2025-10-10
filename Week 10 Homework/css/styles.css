@@ -1,13 +1,7 @@
-#stacked_area_chart {
-  display: block;
-  margin: 0 auto;
-  width: 1200px;   
-  height: 800px; 
-}
-
+#stacked_area_chart,
 #choropleth_map {
   display: block;
   margin: 0 auto;
   width: 1200px;   
-  height: 800px; 
+  height: 700px; 
 }

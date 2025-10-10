@@ -1,6 +1,6 @@
 {
     "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-    "title": "Daily Blood Donations by Blood Group in 2024",
+    "title": "Daily Blood Donations by Blood Group in Malaysia 2024",
     "data": {
         "url": "https://raw.githubusercontent.com/yeongshanyuan/FIT3179/refs/heads/main/Week%2010%20Homework/Cleaned%20Datasets/Daily%20Blood%20Donations%20by%20Blood%20Group.csv"
     },
@@ -8,28 +8,49 @@
     "height": 500,
     "params": [
         {
-            "name": "month_slider",
-            "value": 1,
+            "name": "selected",
+            "value": 12,
             "bind": {
-                "input": "range",
-                "min": 1,
-                "max": 12,
-                "step": 1,
-                "name": "Select Month in 2024: "
+                "input": "select",
+                "options": [
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12
+                ],
+                "labels": [
+                    "January",
+                    "February",
+                    "March",
+                    "April",
+                    "May",
+                    "June",
+                    "July",
+                    "August",
+                    "September",
+                    "October",
+                    "November",
+                    "December"
+                ],
+                "name": "Select month: "
             }
         }
     ],
     "transform": [
         {
             "calculate": "month(datum.date) + 1",
-            "as": "month_num"
+            "as": "month"
         },
         {
-            "calculate": "year(datum.date)",
-            "as": "year"
-        },
-        {
-            "filter": "datum.month_num == month_slider"
+            "filter": "datum.month == selected"
         }
     ],
     "layer": [
@@ -37,12 +58,10 @@
             "mark": "area",
             "encoding": {
                 "x": {
+                    "timeUnit": "date",
                     "field": "date",
                     "type": "temporal",
-                    "title": "Day of Month",
-                    "axis": {
-                        "format": "%d"
-                    }
+                    "title": "Day of month"
                 },
                 "y": {
                     "aggregate": "sum",
@@ -53,21 +72,22 @@
                 "color": {
                     "field": "blood_type",
                     "type": "nominal",
-                    "title": "Blood Type",
+                    "title": "Blood Group",
                     "scale": {
-                        "scheme": "category20"
+                        "scheme": "tableau20"
                     }
                 },
                 "tooltip": [
                     {
                         "field": "date",
                         "type": "temporal",
-                        "title": "Date"
+                        "title": "Date",
+                        "format": "%B %d, %Y"
                     },
                     {
                         "field": "blood_type",
                         "type": "nominal",
-                        "title": "Blood Type"
+                        "title": "Blood Group"
                     },
                     {
                         "aggregate": "sum",
@@ -79,22 +99,51 @@
             }
         },
         {
+            "transform": [
+                {
+                    "filter": "day(datum.date) == 0"
+                }
+            ],
+            "mark": {
+                "type": "rule",
+                "color": "#b40a0a",
+                "strokeWidth": 2,
+                "strokeDash": [
+                    5,
+                    5
+                ]
+            },
+            "encoding": {
+                "x": {
+                    "timeUnit": "date",
+                    "field": "date",
+                    "type": "temporal"
+                },
+                "tooltip": [
+                    {
+                        "field": "date",
+                        "type": "temporal",
+                        "title": "Sunday",
+                        "format": "%B %d, %Y"
+                    }
+                ]
+            }
+        },
+        {
             "data": {
                 "values": [
                     {
-                        "text": "Blood Type O consistently has the highest donations across all months"
+                        "text": "Sundays (red dashed lines) show peak donations consistently"
                     }
                 ]
             },
             "mark": {
                 "type": "text",
-                "align": "center",
+                "align": "left",
                 "baseline": "bottom",
-                "fontSize": 14,
-                "fontWeight": "bold",
-                "color": "#7a0505",
-                "dy": 240,
-                "dx": 100
+                "color": "#b40a0a",
+                "dx": 180,
+                "dy": -255
             },
             "encoding": {
                 "text": {
