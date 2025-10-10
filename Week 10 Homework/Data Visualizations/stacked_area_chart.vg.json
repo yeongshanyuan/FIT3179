@@ -93,7 +93,8 @@
                         "aggregate": "sum",
                         "field": "donations",
                         "type": "quantitative",
-                        "title": "Donations"
+                        "title": "Donations",
+                        "format": ","
                     }
                 ]
             }
