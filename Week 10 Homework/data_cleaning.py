@@ -10,8 +10,9 @@ def create_daily_blood_donations():
     """
     df = pd.read_csv("Original Datasets/Daily Blood Donations by Blood Group.csv")
     df["date"] = pd.to_datetime(df["date"])
+    df["blood_type"] = df["blood_type"].str.upper()
     df_filtered = df[
-        (df["blood_type"] != "all") &
+        (df["blood_type"] != "ALL") &
         (df["date"].dt.year == 2024)]
     
     df_filtered.to_csv("Cleaned Datasets/Daily Blood Donations by Blood Group.csv", index=False)
