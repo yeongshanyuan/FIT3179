@@ -11,8 +11,9 @@ def create_daily_blood_donations():
     """
     df = pd.read_csv("Original Datasets/Daily Blood Donations by Blood Group.csv")
     df["date"] = pd.to_datetime(df["date"], errors="coerce")
+    df["blood_type"] = df["blood_type"].str.upper()
 
-    result = df[(df["blood_type"] != "all") & (df["date"].dt.year.between(2010, 2024))]
+    result = df[(df["blood_type"] != "ALL") & (df["date"].dt.year.between(2010, 2024))]
     result.rename(
         columns={"date": "Date", "blood_type": "Blood Type", "donations": "Donations"},
         inplace=True,
