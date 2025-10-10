@@ -90,12 +90,14 @@
                     {
                         "field": "Total New Donors",
                         "type": "quantitative",
-                        "title": "Total New Donors"
+                        "title": "Total New Donors",
+                        "format": ","
                     },
                     {
                         "field": "Total Blood Donations",
                         "type": "quantitative",
-                        "title": "Total Blood Donations"
+                        "title": "Total Blood Donations",
+                        "format": ","
                     },
                     {
                         "field": "Proportion",
