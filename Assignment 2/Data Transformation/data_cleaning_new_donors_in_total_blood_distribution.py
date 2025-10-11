@@ -47,10 +47,7 @@ def merge_blood_donations_and_new_donors():
     df_bd = create_yearly_blood_donations_by_state()
 
     state_map = {
-        "Negeri Sembilan": "NegeriSembilan",
-        "Pulau Pinang": "PulauPinang",
-        "Terengganu": "Trengganu",
-        "W.P. Kuala Lumpur": "KualaLumpur",
+        "W.P. Kuala Lumpur": "Kuala Lumpur",
     }
     df_nd["state"] = df_nd["state"].replace(state_map)
     df_bd["state"] = df_bd["state"].replace(state_map)
