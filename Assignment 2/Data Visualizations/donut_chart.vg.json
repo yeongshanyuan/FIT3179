@@ -20,12 +20,7 @@
             "field": "Blood Type",
             "type": "nominal",
             "scale": {
-                "range": [
-                    "#fdbe85",
-                    "#fd8d3c",
-                    "#e6550d",
-                    "#bd0026"
-                ]
+                "scheme": "tableau20"
             },
             "legend": {
                 "title": "Blood Type",

@@ -19,77 +19,135 @@
     ],
     "vconcat": [
         {
-            "width": 500,
-            "height": 200,
+            "width": 1000,
+            "height": 20,
+            "data": {
+                "values": [
+                    {
+                        "text": "Sundays (red dashed lines) show peak donations consistently throughout the year"
+                    }
+                ]
+            },
+            "mark": {
+                "type": "text",
+                "align": "center",
+                "color": "#b40a0a",
+                "fontSize": 12
+            },
+            "encoding": {
+                "text": {
+                    "field": "text",
+                    "type": "nominal"
+                }
+            }
+        },
+        {
+            "width": 1000,
+            "height": 500,
             "transform": [
                 {
                     "filter": "year(datum.Date) == Year"
                 }
             ],
-            "mark": "area",
-            "encoding": {
-                "x": {
-                    "field": "Date",
-                    "timeUnit": "yearmonthdate",
-                    "scale": {
-                        "domain": {
-                            "param": "time_brush"
-                        }
-                    },
-                    "axis": {
-                        "title": "",
-                        "grid": false,
-                        "tickCount": 5,
-                        "format": "%b %d"
+            "layer": [
+                {
+                    "mark": "area",
+                    "encoding": {
+                        "x": {
+                            "field": "Date",
+                            "timeUnit": "yearmonthdate",
+                            "scale": {
+                                "domain": {
+                                    "param": "time_brush"
+                                }
+                            },
+                            "axis": {
+                                "title": "",
+                                "grid": false,
+                                "tickCount": 5,
+                                "format": "%b %d"
+                            }
+                        },
+                        "y": {
+                            "aggregate": "sum",
+                            "field": "Donations",
+                            "title": "Number of Donations"
+                        },
+                        "color": {
+                            "field": "Blood Type",
+                            "type": "nominal",
+                            "title": "Blood Type",
+                            "scale": {
+                                "scheme": "tableau20"
+                            },
+                            "legend": {
+                                "orient": "bottom",
+                                "direction": "horizontal"
+                            }
+                        },
+                        "tooltip": [
+                            {
+                                "field": "Date",
+                                "type": "temporal",
+                                "title": "Date",
+                                "format": "%B %d, %Y"
+                            },
+                            {
+                                "field": "Blood Type",
+                                "type": "nominal",
+                                "title": "Blood Type"
+                            },
+                            {
+                                "aggregate": "sum",
+                                "field": "Donations",
+                                "type": "quantitative",
+                                "title": "Total Donations",
+                                "format": ","
+                            }
+                        ]
                     }
                 },
-                "y": {
-                    "aggregate": "sum",
-                    "field": "Donations",
-                    "title": "Number of Donations"
-                },
-                "color": {
-                    "field": "Blood Type",
-                    "type": "nominal",
-                    "title": "Blood Type",
-                    "scale": {
-                        "range": [
-                            "#fdbe85",
-                            "#fd8d3c",
-                            "#e6550d",
-                            "#bd0026"
+                {
+                    "transform": [
+                        {
+                            "filter": "day(datum.Date) == 0"
+                        }
+                    ],
+                    "mark": {
+                        "type": "rule",
+                        "color": "#b40a0a",
+                        "strokeWidth": 2,
+                        "strokeDash": [
+                            5,
+                            5
                         ]
                     },
-                    "legend": {
-                        "orient": "bottom",
-                        "direction": "horizontal"
+                    "encoding": {
+                        "x": {
+                            "field": "Date",
+                            "timeUnit": "yearmonthdate",
+                            "type": "temporal",
+                            "scale": {
+                                "domain": {
+                                    "param": "time_brush"
+                                }
+                            }
+                        },
+                        "tooltip": [
+                            {
+                                "field": "Date",
+                                "type": "temporal",
+                                "title": "Sunday",
+                                "format": "%B %d, %Y"
+                            }
+                        ]
                     }
-                },
-                "tooltip": [
-                    {
-                        "field": "Date",
-                        "type": "temporal",
-                        "title": "Date",
-                        "format": "%B %d, %Y"
-                    },
-                    {
-                        "field": "Blood Type",
-                        "type": "nominal",
-                        "title": "Blood Type"
-                    },
-                    {
-                        "aggregate": "sum",
-                        "field": "Donations",
-                        "type": "quantitative",
-                        "title": "Total Donations",
-                        "format": ","
-                    }
-                ]
-            }
+                }
+            ]
         },
         {
-            "width": 500,
-            "height": 80,
+            "width": 1000,
+            "height": 200,
             "transform": [
                 {
                     "filter": "year(datum.Date) == Year"
@@ -103,7 +161,7 @@
                         "x": [
                             {
                                 "year": 2024,
-                                "month": 11,
+                                "month": 12,
                                 "date": 1
                             },
                             {

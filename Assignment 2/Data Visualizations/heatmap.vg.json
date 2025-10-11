@@ -1,6 +1,6 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "title": "Blood Donations by State and Age Group (2010–2024)",
+  "title": "Blood Donations by State and Age Group (2010-2024)",
   "data": {
     "url": "../Cleaned Datasets/New Donors by State and Age Group.csv"
   },
@@ -23,11 +23,11 @@
     },
     {
       "calculate": "datum['Total Blood Donations'] == 0 ? 'zero' : 'nonzero'",
-      "as": "donation_status"
+      "as": "Donation Status"
     },
     {
       "calculate": "datum['Total Blood Donations'] == 0 ? 0.1 : datum['Total Blood Donations']",
-      "as": "donations_logsafe"
+      "as": "Donations Log"
     }
   ],
   "mark": "rect",
@@ -57,10 +57,10 @@
     },
     "color": {
       "condition": {
-        "test": "datum['donation_status'] == 'zero'",
+        "test": "datum['Donation Status'] == 'zero'",
         "value": "#e0e0e0"
       },
-      "field": "donations_logsafe",
+      "field": "Donations Log",
       "type": "quantitative",
       "title": "Total Donations (log scale)",
       "scale": {
